@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Assessing Factors Contributing to House Prices in New York</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="500636985, 500111965, 510014663, 500546466" />
+    <script src="Report_files/header-attrs-2.11/header-attrs.js"></script>
+    <link href="Report_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/sydney.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Assessing Factors Contributing to House Prices in New York
+## DATA2002 Presentation | Group: LAB-07-RE_none_2
+### 500636985, 500111965, 510014663, 500546466
+
+---
+
+
+
+background-image: url(image1.jpeg)
+background-position: 100% 50%
+background-size: 50% 100%
+
+## Data Description
+
+### New York House Prices Data
+.pull-left[
++ Source: random sample of 1734 houses taken from full Saratoga Housing Data (De Veaux)
++ Our aim is to model the house prices as a function of up to 13 potential explanatory variables
+
+
+```r
+prices = read_tsv("housing-prices-ge19.txt")
+# Removing empty cells and categorical variables with &gt; 2 levels
+prices &lt;- subset(prices, select = -Heat.Type)
+prices &lt;- subset(prices, select = -Fuel.Type)
+prices &lt;- subset(prices, select = -Sewer.Type)
+prices_clean = prices %&gt;%
+  drop_na()
+
+dim(prices_clean)
+```
+
+```
+## [1] 1734   14
+```
+]
+
+---
+### House Prices data: Variables in the data set
+
+- 1734 observations of house price in Saratoga County, New York in 2006.
+.font70[
+|Variable      |Description |
+|:-------------|-----------:|
+|Lot.Size      |Size of the lot (acres) |
+|Age           |Years passed as the house is constructed (years) |
+|Land.Value    |Value of land (US dollars) |
+|Living.Area   |The total living area of the property (square feet) |
+|Rooms         |Number of rooms in the property |
+|Bedrooms      |Number of bedrooms in the property |
+|Bathrooms     |Number of bathrooms in the property |
+|Pct.College   |Percent of neighborhood that at least graduated from college |
+|Fireplaces    |Number of fireplaces in the property |
+|Heat.Type     |Type of heating system (electric / hot air / hot water) |
+|Sewer.Type    |Type of sewer system (private / public) |
+|Fuel.Type     |Type of fuel used for heating (electric / gas / oil)
+|Waterfront    |Whether or not the property includes waterfront |
+|New.Construct |Whether or not  the property is a new construction |
+|Central.Air   |Whether or not the property has central air |
+]
+
+---
+## Assumptions
+
+1. .black[**Linearity**] - the relationship between `\(Y\)` and `\(x\)` is linear.
+&lt;br&gt;
+&lt;br&gt;
+2. .black[**Independence**] - all the errors are independent of each other.
+&lt;br&gt;
+&lt;br&gt;
+3. .black[**Homoskedasticity**] - the errors have constant variance
+&lt;br&gt;
+&lt;br&gt;
+4. .black[**Normality**] - the errors follow a normal distribution
+
+---
+
+### Assumption Checking 
+
+
+```r
+lm1 = lm((Price) ~ ., data = prices_clean)
+autoplot(lm1, which = 1:2)
+```
+
+![](Report_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+---
+### Transformation 
+.font80[
+We observed that our data set has very large values for Price, Living Area and Land Value. We therefore take their logs to transform our data.
+]
+.code80[
+
+```r
+lm2 = lm(log(Price) ~ Lot.Size + Waterfront + Age + log(Land.Value) + New.Construct + Central.Air + log(Living.Area) + Pct.College + Bedrooms + Fireplaces + Bathrooms + Rooms + Test, data = prices_clean)
+
+autoplot(lm2, which = 1:2)
+```
+
+![](Report_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+---
+## Model Selection
+
+### House Prices data: null and full model
+.pull-left[
+.scroll-box-20[
+
+```r
+M0 = lm(log(Price) ~ 1, data = prices_clean)  # Null model
+M1 = lm(log(Price) ~ Lot.Size + Waterfront + Age + log(Land.Value) + New.Construct + Central.Air + log(Living.Area) + Pct.College + Bedrooms + Fireplaces + Bathrooms + Rooms + Test, data = prices_clean)  # Full model
+round(summary(M1)$coef, 3)
+```
+
+```
+##                  Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)         6.736      0.251  26.851    0.000
+## Lot.Size            0.034      0.010   3.321    0.001
+## Waterfront          0.529      0.078   6.813    0.000
+## Age                -0.001      0.000  -3.647    0.000
+## log(Land.Value)     0.130      0.008  15.288    0.000
+## New.Construct      -0.106      0.036  -2.943    0.003
+## Central.Air         0.059      0.017   3.521    0.000
+## log(Living.Area)    0.536      0.040  13.531    0.000
+## Pct.College        -0.002      0.001  -2.987    0.003
+## Bedrooms           -0.007      0.013  -0.507    0.612
+## Fireplaces          0.002      0.015   0.108    0.914
+## Bathrooms           0.107      0.017   6.398    0.000
+## Rooms               0.013      0.005   2.874    0.004
+## Test                0.015      0.016   0.935    0.350
+```
+]
+]
+.pull-right[
+
+```r
+t(round(broom::glance(M1), 2))
+```
+
+```
+##                  [,1]
+## r.squared        0.59
+## adj.r.squared    0.58
+## sigma            0.29
+## statistic      186.94
+## p.value          0.00
+## df              13.00
+## logLik        -334.90
+## AIC            699.80
+## BIC            781.67
+## deviance       149.39
+## df.residual   1720.00
+## nobs          1734.00
+```
+]
+
+---
+
+### House Prices data: backward search using AIC
+Since none of the remaining variables have p value &gt; 0.05, we don't have to drop any more variables from our model
+.pull-left[
+
+```r
+step.back.aic = step(M1, 
+                     direction = "backward", 
+                     trace = FALSE)
+round(summary(step.back.aic)$coef,3)
+```
+
+```
+##                  Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)         6.772      0.234  28.992    0.000
+## Lot.Size            0.034      0.010   3.322    0.001
+## Waterfront          0.532      0.077   6.874    0.000
+## Age                -0.001      0.000  -3.799    0.000
+## log(Land.Value)     0.129      0.008  15.299    0.000
+## New.Construct      -0.106      0.036  -2.940    0.003
+## Central.Air         0.060      0.016   3.655    0.000
+## log(Living.Area)    0.530      0.037  14.513    0.000
+## Pct.College        -0.002      0.001  -3.009    0.003
+## Bathrooms           0.106      0.017   6.442    0.000
+## Rooms               0.013      0.004   2.895    0.004
+```
+]
+.pull-right[
+.pull-right[
+
+```r
+step.back.aic %&gt;%
+  broom::glance() %&gt;% 
+  round(2) %&gt;% t()
+```
+
+```
+##                  [,1]
+## r.squared        0.59
+## adj.r.squared    0.58
+## sigma            0.29
+## statistic      243.16
+## p.value          0.00
+## df              10.00
+## logLik        -335.49
+## AIC            694.98
+## BIC            760.48
+## deviance       149.50
+## df.residual   1723.00
+## nobs          1734.00
+```
+]
+]
+---
+### House Prices data: foward search using AIC
+.scroll-box-20[
+
+```r
+step.fwd.aic = step(M0, scope = list(lower = M0, upper = M1), direction = "forward", trace = FALSE)
+summary(step.fwd.aic)
+```
+
+```
+## 
+## Call:
+## lm(formula = log(Price) ~ log(Living.Area) + log(Land.Value) + 
+##     Bathrooms + Waterfront + Age + Lot.Size + Central.Air + Rooms + 
+##     Pct.College + New.Construct, data = prices_clean)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.8105 -0.1592  0.0089  0.1725  1.5598 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       6.7721846  0.2335899  28.992  &lt; 2e-16 ***
+## log(Living.Area)  0.5303128  0.0365414  14.513  &lt; 2e-16 ***
+## log(Land.Value)   0.1294286  0.0084598  15.299  &lt; 2e-16 ***
+## Bathrooms         0.1064868  0.0165297   6.442 1.52e-10 ***
+## Waterfront        0.5320513  0.0773967   6.874 8.68e-12 ***
+## Age              -0.0010038  0.0002642  -3.799 0.000150 ***
+## Lot.Size          0.0343534  0.0103405   3.322 0.000912 ***
+## Central.Air       0.0600091  0.0164177   3.655 0.000265 ***
+## Rooms             0.0126213  0.0043598   2.895 0.003840 ** 
+## Pct.College      -0.0024483  0.0008135  -3.009 0.002656 ** 
+## New.Construct    -0.1059475  0.0360314  -2.940 0.003321 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2946 on 1723 degrees of freedom
+## Multiple R-squared:  0.5853,	Adjusted R-squared:  0.5829 
+## F-statistic: 243.2 on 10 and 1723 DF,  p-value: &lt; 2.2e-16
+```
+]
+---
+### Forward AIC: add1()
+
+```r
+add1(step.fwd.aic, test = "F", scope = M1)
+```
+
+```
+## Single term additions
+## 
+## Model:
+## log(Price) ~ log(Living.Area) + log(Land.Value) + Bathrooms + 
+##     Waterfront + Age + Lot.Size + Central.Air + Rooms + Pct.College + 
+##     New.Construct
+##            Df Sum of Sq    RSS     AIC F value Pr(&gt;F)
+## &lt;none&gt;                  149.50 -4227.9               
+## Bedrooms    1  0.025287 149.47 -4226.2  0.2913 0.5894
+## Fireplaces  1  0.001389 149.49 -4225.9  0.0160 0.8994
+## Test        1  0.078920 149.42 -4226.8  0.9095 0.3404
+```
+---
+
+### Comparing forward and backwards stepwise
+Both forward and backward AIC gives us exactly the same model.
+.pull-left[
+
+```r
+sjPlot::tab_model(
+  step.fwd.aic, step.back.aic, 
+  show.ci = FALSE, 
+  show.aic = TRUE,
+  dv.labels = c("Forward model",
+                "Backward model")
+)
+```
+]
+.scroll-box-20[
+.pull-right[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Forward model&lt;/th&gt;
+&lt;th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;Backward model&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Estimates&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;p&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Estimates&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;p&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;6.77&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;6.77&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Living Area [log]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.53&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.53&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Land Value [log]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.13&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.13&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Bathrooms&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Waterfront&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.53&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.53&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Age&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.00&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.00&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Lot Size&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.03&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.03&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Central Air&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Rooms&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.01&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.004&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.01&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.004&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;Pct College&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.00&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.003&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.00&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.003&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;New Construct&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.003&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.11&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.003&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2"&gt;1734&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2"&gt;1734&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; / R&lt;sup&gt;2&lt;/sup&gt; adjusted&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2"&gt;0.585 / 0.583&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2"&gt;0.585 / 0.583&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;AIC&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2"&gt;694.984&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2"&gt;694.984&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+]
+
+---
+## Assumpting Checking on selected model again
+Assumptions appear to be fairly in check
+
+```r
+autoplot(step.fwd.aic, which = 1:2)
+```
+
+![](Report_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+---
+
+## Hypothesis Testing
+.font80[
+.black[**Hypothesis**]: 
+`$$H_0: \beta_{0} = \beta_{1} = \beta_{2} ... \beta_{10} = 0 \:vs\: H_1: \beta_{i} \neq 0 \:for \:i \in [1,10]$$`
+.black[**Assumptions**]: The residuals `\(\varepsilon_i\)` are iid N(0, `\(\sigma^2\)`)
++ Linearity: There is no obvious pattern(e.g. smiley face or frowny face) in the blue line, it does not appear we have misspecified the model
++ Homoskedasticity: Some outliers are present, but majority of our points don’t appear to be fanning out or changing their variability over the range of the fitted values so the constant error variance assumption is met.
++ Normality: In the QQ plot, there are some outliers present, but most points fall on the line, so it’s not severe enough departure to cause too much concern.
+
+.black[**Test Statistic**]: `$$\frac{Change \:in \:SSR \:/ \:Number \:of \:variables \:droppped}{MSE_{Full}}$$`
+
+.black[**Observed Test Statistic**]: 243.2
+
+.black[**p-Value**]: &lt; 2.2e-16
+
+.black[**Conclusion**]: Since the p-Value is &lt; 0.05, we reject the null hypothesis. Hence, there is evidence to suggest 
+            that there is significant linear relationship between Price and the derived independent variables.
+]
+
+---
+## Interpretating the estimated coefficients
+
+.font70[
+.content-box-blue[
+`$$log(Price) =   6.772185 + 0.034353*Lot Size + 0.532051*Waterfront - 0.001004*Age + 0.129429*log(Land Value) - 0.105948*New Construct$$` 
+`$$+ 0.060009*Central Air + 0.530313*log(Living Area) - 0.002448*Pct.College + 0.106487*Bathrooms + 0.012621*Rooms$$`
+]
+]
+
+.font80[
++ On average, holding the other variables constant, a 1 unit increase in Lot Size leads to a 0.034 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Waterfront leads to a 0.532 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Age leads to a 0.001 unit decrease in house prices
++ On average, holding the other variables constant, a 1 unit increase in Land Value leads to a 0.129 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in New Construct leads to a 0.106 unit decrease in house prices
++ On average, holding the other variables constant, a 1 unit increase in Central Air leads to a 0.060 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Living Area leads to a 0.530 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Pct.College leads to a 0.002 unit decrease in house prices
++ On average, holding the other variables constant, a 1 unit increase in Bathrooms leads to a 0.106 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Rooms leads to a 0.013 unit increase in house prices
+]
+
+
+---
+class: segue-red
+.Large[
+.Large[
+.white[**THANK YOU**]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

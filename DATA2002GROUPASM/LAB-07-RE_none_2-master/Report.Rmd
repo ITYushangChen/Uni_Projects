@@ -1,0 +1,254 @@
+---
+title: "Assessing Factors Contributing to House Prices in New York"
+subtitle: "DATA2002 Presentation | Group: LAB-07-RE_none_2"
+author: "500636985,  500111965,  510014663,  500546466"
+output:
+  xaringan::moon_reader:
+    css: ["default", "assets/sydney-fonts.css", "assets/sydney.css"]
+    self_contained: false
+    seal: true
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9' 
+      navigation:
+        scroll: false 
+---
+
+```{r setup, include=FALSE}
+suppressMessages(library(sjPlot))
+suppressMessages(library(ggplot2))
+suppressMessages(library(tidyverse))
+suppressMessages(library(janitor))
+suppressMessages(library(caret))
+suppressMessages(library(ggfortify))
+suppressMessages(library(gridExtra))
+suppressMessages(library(dplyr))
+suppressMessages(library(broom))
+
+```
+background-image: url(image1.jpeg)
+background-position: 100% 50%
+background-size: 50% 100%
+
+## Data Description
+
+### New York House Prices Data
+.pull-left[
++ Source: random sample of 1734 houses taken from full Saratoga Housing Data (De Veaux)
++ Our aim is to model the house prices as a function of up to 13 potential explanatory variables
+
+```{r load_data, message=FALSE, fig.height=4.5, fig.width=12, fig.retina=2, fig.align='center', warning=FALSE}
+prices = read_tsv("housing-prices-ge19.txt")
+# Removing empty cells and categorical variables with > 2 levels
+prices <- subset(prices, select = -Heat.Type)
+prices <- subset(prices, select = -Fuel.Type)
+prices <- subset(prices, select = -Sewer.Type)
+prices_clean = prices %>%
+  drop_na()
+
+dim(prices_clean)
+```
+]
+
+---
+### House Prices data: Variables in the data set
+
+- 1734 observations of house price in Saratoga County, New York in 2006.
+.font70[
+|Variable      |Description |
+|:-------------|-----------:|
+|Lot.Size      |Size of the lot (acres) |
+|Age           |Years passed as the house is constructed (years) |
+|Land.Value    |Value of land (US dollars) |
+|Living.Area   |The total living area of the property (square feet) |
+|Rooms         |Number of rooms in the property |
+|Bedrooms      |Number of bedrooms in the property |
+|Bathrooms     |Number of bathrooms in the property |
+|Pct.College   |Percent of neighborhood that at least graduated from college |
+|Fireplaces    |Number of fireplaces in the property |
+|Heat.Type     |Type of heating system (electric / hot air / hot water) |
+|Sewer.Type    |Type of sewer system (private / public) |
+|Fuel.Type     |Type of fuel used for heating (electric / gas / oil)
+|Waterfront    |Whether or not the property includes waterfront |
+|New.Construct |Whether or not  the property is a new construction |
+|Central.Air   |Whether or not the property has central air |
+]
+
+---
+## Assumptions
+
+1. .black[**Linearity**] - the relationship between $Y$ and $x$ is linear.
+<br>
+<br>
+2. .black[**Independence**] - all the errors are independent of each other.
+<br>
+<br>
+3. .black[**Homoskedasticity**] - the errors have constant variance
+<br>
+<br>
+4. .black[**Normality**] - the errors follow a normal distribution
+
+---
+
+### Assumption Checking 
+
+```{r, fig.dim=c(17,6), warning=FALSE}
+lm1 = lm((Price) ~ ., data = prices_clean)
+autoplot(lm1, which = 1:2)
+```
+---
+### Transformation 
+.font80[
+We observed that our data set has very large values for Price, Living Area and Land Value. We therefore take their logs to transform our data.
+]
+.code80[
+```{r, fig.dim=c(17,6), warning=FALSE}
+lm2 = lm(log(Price) ~ Lot.Size + Waterfront + Age + log(Land.Value) + New.Construct + Central.Air + log(Living.Area) + Pct.College + Bedrooms + Fireplaces + Bathrooms + Rooms + Test, data = prices_clean)
+
+autoplot(lm2, which = 1:2)
+```
+]
+
+---
+## Model Selection
+
+### House Prices data: null and full model
+.pull-left[
+.scroll-box-20[
+```{r}
+M0 = lm(log(Price) ~ 1, data = prices_clean)  # Null model
+M1 = lm(log(Price) ~ Lot.Size + Waterfront + Age + log(Land.Value) + New.Construct + Central.Air + log(Living.Area) + Pct.College + Bedrooms + Fireplaces + Bathrooms + Rooms + Test, data = prices_clean)  # Full model
+round(summary(M1)$coef, 3)
+```
+]
+]
+.pull-right[
+```{r}
+t(round(broom::glance(M1), 2))
+```
+]
+
+---
+
+### House Prices data: backward search using AIC
+Since none of the remaining variables have p value > 0.05, we don't have to drop any more variables from our model
+.pull-left[
+```{r}
+step.back.aic = step(M1, 
+                     direction = "backward", 
+                     trace = FALSE)
+round(summary(step.back.aic)$coef,3)
+```
+]
+.pull-right[
+.pull-right[
+```{r}
+step.back.aic %>%
+  broom::glance() %>% 
+  round(2) %>% t()
+```
+]
+]
+---
+### House Prices data: foward search using AIC
+.scroll-box-20[
+```{r}
+step.fwd.aic = step(M0, scope = list(lower = M0, upper = M1), direction = "forward", trace = FALSE)
+summary(step.fwd.aic)
+```
+]
+---
+### Forward AIC: add1()
+```{r}
+add1(step.fwd.aic, test = "F", scope = M1)
+```
+---
+
+### Comparing forward and backwards stepwise
+Both forward and backward AIC gives us exactly the same model.
+.pull-left[
+```{r, fig.dim=c(2,6), warning=FALSE, message=FALSE, results='hide'}
+sjPlot::tab_model(
+  step.fwd.aic, step.back.aic, 
+  show.ci = FALSE, 
+  show.aic = TRUE,
+  dv.labels = c("Forward model",
+                "Backward model")
+)
+```
+]
+.scroll-box-20[
+.pull-right[
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+sjPlot::tab_model(
+  step.fwd.aic, step.back.aic, 
+  show.ci = FALSE, 
+  show.aic = TRUE,
+  dv.labels = c("Forward model",
+                "Backward model")
+)
+```
+]
+]
+
+---
+## Assumpting Checking on selected model again
+Assumptions appear to be fairly in check
+```{r, fig.dim=c(17,6), warning=FALSE}
+autoplot(step.fwd.aic, which = 1:2)
+
+```
+---
+
+## Hypothesis Testing
+.font80[
+.black[**Hypothesis**]: 
+$$H_0: \beta_{0} = \beta_{1} = \beta_{2} ... \beta_{10} = 0 \:vs\: H_1: \beta_{i} \neq 0 \:for \:i \in [1,10]$$
+.black[**Assumptions**]: The residuals $\varepsilon_i$ are iid N(0, $\sigma^2$)
++ Linearity: There is no obvious pattern(e.g. smiley face or frowny face) in the blue line, it does not appear we have misspecified the model
++ Homoskedasticity: Some outliers are present, but majority of our points don’t appear to be fanning out or changing their variability over the range of the fitted values so the constant error variance assumption is met.
++ Normality: In the QQ plot, there are some outliers present, but most points fall on the line, so it’s not severe enough departure to cause too much concern.
+
+.black[**Test Statistic**]: $$\frac{Change \:in \:SSR \:/ \:Number \:of \:variables \:droppped}{MSE_{Full}}$$
+
+.black[**Observed Test Statistic**]: 243.2
+
+.black[**p-Value**]: < 2.2e-16
+
+.black[**Conclusion**]: Since the p-Value is < 0.05, we reject the null hypothesis. Hence, there is evidence to suggest 
+            that there is significant linear relationship between Price and the derived independent variables.
+]
+
+---
+## Interpretating the estimated coefficients
+
+.font70[
+.content-box-blue[
+$$log(Price) =   6.772185 + 0.034353*Lot Size + 0.532051*Waterfront - 0.001004*Age + 0.129429*log(Land Value) - 0.105948*New Construct$$ 
+$$+ 0.060009*Central Air + 0.530313*log(Living Area) - 0.002448*Pct.College + 0.106487*Bathrooms + 0.012621*Rooms$$
+]
+]
+
+.font80[
++ On average, holding the other variables constant, a 1 unit increase in Lot Size leads to a 0.034 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Waterfront leads to a 0.532 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Age leads to a 0.001 unit decrease in house prices
++ On average, holding the other variables constant, a 1 unit increase in Land Value leads to a 0.129 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in New Construct leads to a 0.106 unit decrease in house prices
++ On average, holding the other variables constant, a 1 unit increase in Central Air leads to a 0.060 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Living Area leads to a 0.530 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Pct.College leads to a 0.002 unit decrease in house prices
++ On average, holding the other variables constant, a 1 unit increase in Bathrooms leads to a 0.106 unit increase in house prices
++ On average, holding the other variables constant, a 1 unit increase in Rooms leads to a 0.013 unit increase in house prices
+]
+
+
+---
+class: segue-red
+.Large[
+.Large[
+.white[**THANK YOU**]
+]
+]

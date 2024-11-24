@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4e325a5f-ebf6-4458-a83f-e14547ed7be8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-02-27_10.26.32.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-02-27_11.01.03.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.42.55.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.43.32.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.44.09.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.45.20.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.49.28.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.50.04.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.57.48.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_10.59.05.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_11.00.36.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_11.11.25.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BYB_Recording_2023-04-03_11.11.54.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Left_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Left_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Test1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Test_blink.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Test_left.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Test_right.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink4.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blink5.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_cleftc_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_cleftc_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_cleftc_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_cleftc_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_cleftc_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_cleftc_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_crightc_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_crightc_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_crightc_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_crightc_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_crightc_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_crightc_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_left_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_left_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_left_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_right_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_right_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/5_right_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/BYB_Recording_2023-02-27_10.26.32.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/BYB_Recording_2023-02-27_11.01.03.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Deliberate_blink_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Deliberate_blink_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Deliberate_blink_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Deliberate_blink_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Deliberate_blink_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Deliberate_blink_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_MATLAB/InitializePortInput.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_MATLAB/SpikerStream.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_MATLAB/process_data.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/.ipynb_checkpoints/SpikerStream_Python2-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/.ipynb_checkpoints/SpikerStream_Python3-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/.ipynb_checkpoints/SpikerStream_Python3_with_FFT-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/Linux_Instructions.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/SpikerStream_Linux.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/SpikerStream_Linux_Live.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/SpikerStream_Python2.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/SpikerStream_Python3.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/SpikerStream_Python3_Mac.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/SpikerStream_Python/SpikerStream_Python3_Script.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/live_wav_emulation/.ipynb_checkpoints/live_wav-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/live_wav_emulation/BYB_Recording_2019-01-18_18.01.34.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/live_wav_emulation/BYB_Recording_2019-01-18_18.15.16.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/live_wav_emulation/BYB_Recording_2019-01-18_18.29.49.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/live_wav_emulation/live_wav.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/SpikerStream-master/live_wav_emulation/load_wav_live.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/Test_2/5_left_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/clean5_left_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/clean5_left_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/clean5_right_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/clean5_right_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/collected/5_left_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/collected/5_left_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/collected/5_left_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/collected/5_right_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/collected/5_right_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/collected/5_right_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/feature/wave_label_short_results.rds" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/feature/wave_seq_short_list_zoe.rds" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/natural_blink_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/natural_blink_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/natural_blink_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/natural_blink_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/natural_blink_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/natural_blink_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_cleftc_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_cleftc_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_cleftc_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_cleftc_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_cleftc_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_cleftc_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_crightc_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_crightc_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_crightc_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_crightc_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_crightc_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/single_crightc_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datasets/test.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../figure.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hard_blink_test.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../issue.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_centre_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_centre_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_centre_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_centre_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_centre_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_centre_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_right_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_right_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_right_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_right_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_right_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../left_to_right_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Brain.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classifiers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Product_Notebook.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Week9_visualization.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/feature.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labels.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stream_ani.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stream_plt.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_centre_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_centre_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_centre_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_centre_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_centre_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_centre_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_left_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_left_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_left_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_left_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_left_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../right_to_left_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_1.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_2.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_3.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../soft_blink_test.wav" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NjzLtAFxAP8tBHxEvVBddH6144" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4e325a5f-ebf6-4458-a83f-e14547ed7be8" name="Changes" comment="" />
+      <created>1680192226422</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680192226422</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
